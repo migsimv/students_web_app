@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for
 from models import db, Student
 from forms import StudentForm
 from config import Config
@@ -31,7 +31,6 @@ def create_student():
         db.session.add(student)
         db.session.commit()
         
-        flash("Student created!", "success")
         return redirect(url_for("index"))
     
     return render_template("create.html", form=form)
@@ -54,7 +53,6 @@ def edit_student(student_id):
         student.email = form.email.data
         db.session.commit()
         
-        flash("Student updated!", "success")
         return redirect(url_for("show_student", student_id=student.id))
     
     return render_template("edit.html", form=form, student=student)
@@ -65,7 +63,6 @@ def delete_student(student_id):
     student = Student.query.get_or_404(student_id)
     db.session.delete(student)
     db.session.commit()
-    flash("Student deleted!", "info")
     return redirect(url_for("index"))
 
 if __name__ == "__main__":
