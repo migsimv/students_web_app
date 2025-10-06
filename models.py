@@ -10,5 +10,3 @@ class Student(db.Model):
     last_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(200), unique=True, nullable=False)
 
-    def __repr__(self):
-        return f"<Student {self.id} {self.first_name} {self.last_name}>"

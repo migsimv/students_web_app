@@ -1,13 +1,21 @@
 import os
 
 class Config:
+   # print(os.environ)
     if 'RDS_HOSTNAME' in os.environ:
-        SQLALCHEMY_DATABASE_URI = \
-            f"postgresql://{os.environ['RDS_USERNAME']}:{os.environ['RDS_PASSWORD']}" \
-            f"@{os.environ['RDS_HOSTNAME']}:{os.environ['RDS_PORT']}/{os.environ['RDS_DB_NAME']}"
+       SQLALCHEMY_DATABASE_URI = (
+            "postgresql://{user}:{password}@{host}:{port}/{db}".format(
+                user=os.environ["RDS_USERNAME"],
+                password=os.environ["RDS_PASSWORD"],
+                host=os.environ["RDS_HOSTNAME"],
+                port=os.environ["RDS_PORT"],
+                db=os.environ["RDS_DB_NAME"],
+            )
+        )
     else:
-        SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or \
+        SQLALCHEMY_DATABASE_URI = os.getenv(
+            "DATABASE_URL",
             "postgresql://postgres:password@localhost:5432/studentsdb"
-    
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+        )
+            
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
