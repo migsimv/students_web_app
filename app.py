@@ -9,7 +9,8 @@ app.config.from_object(Config)
 db.init_app(app)
 
 with app.app_context():
-    db.create_all()
+   #     db.drop_all()    
+    db.create_all()  
 
 
 @app.route("/")
@@ -26,7 +27,10 @@ def create_student():
         student = Student(
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            email=form.email.data
+            email=form.email.data,
+            age=form.age.data,
+            birth_date=form.birth_date.data,
+            active=form.active.data
         )
         db.session.add(student)
         db.session.commit()
@@ -51,6 +55,9 @@ def edit_student(student_id):
         student.first_name = form.first_name.data
         student.last_name = form.last_name.data
         student.email = form.email.data
+        student.age = form.age.data
+        student.birth_date = form.birth_date.data
+        student.active = form.active.data
         db.session.commit()
         
         return redirect(url_for("show_student", student_id=student.id))

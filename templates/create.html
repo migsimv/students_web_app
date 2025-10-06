@@ -27,6 +27,21 @@
       </p>
 
       <p>
+        {{ form.age.label }}<br>
+        {{ form.age() }}
+      </p>
+
+      <p>
+        {{ form.birth_date.label }}<br>
+        {{ form.birth_date() }}
+      </p>
+
+      <p>
+        {{ form.active.label }}
+        {{ form.active() }}
+      </p>
+
+      <p>
         {{ form.submit(value="Create") }}
         <a href="{{ url_for('index') }}">Cancel</a>
       </p>

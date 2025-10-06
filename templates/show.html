@@ -9,6 +9,9 @@
     <h2>{{ student.first_name }} {{ student.last_name }}</h2>
     <ul>
       <li>Email: {{ student.email }}</li>
+      <li>Age: {{ student.age or "" }}</li>
+      <li>Birth Date: {{ student.birth_date or "" }}</li>
+      <li>Active: {{ "Yes" if student.active else "No" }}</li>
     </ul>
 
     <p>
