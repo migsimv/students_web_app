@@ -1,7 +1,6 @@
 import os
 
 class Config:
-   # print(os.environ)
     on_vercel = os.getenv("VERCEL") is not None
     on_aws = "RDS_HOSTNAME" in os.environ
 
@@ -15,10 +14,12 @@ class Config:
                 db=os.environ["RDS_DB_NAME"],
             )
         )
-
+        
     elif on_vercel:
-        SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
-
+        database_url = os.getenv("DATABASE_URL")
+        if database_url and database_url.startswith("postgres://"):
+            database_url = database_url.replace("postgres://", "postgresql://", 1)
+        SQLALCHEMY_DATABASE_URI = database_url
     else:
         SQLALCHEMY_DATABASE_URI = os.getenv(
             "DATABASE_URL",
