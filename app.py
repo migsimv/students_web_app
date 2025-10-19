@@ -8,9 +8,9 @@ app.config.from_object(Config)
 
 db.init_app(app)
 
-with app.app_context():
-   #     db.drop_all()    
-    db.create_all()  
+@app.before_request
+def create_tables():
+    db.create_all()
 
 
 @app.route("/")
